@@ -7,10 +7,10 @@
 					<BrainIcon />
 				</Icon>
 				By
-				<a href="https://dverse.studio/" target="_blank" alt="D*VERSE" rel="noopener noreferrer" class="mx-1">
-					D*VERSE Studio
+				<a href="https://osdri.org" target="_blank" alt="D*VERSE" rel="noopener noreferrer" class="mx-1">
+					Operation Stand Down RI
 				</a>
-				All rights Reserved © Copyright {{ year }}
+				All Rights Reserved © Copyright {{ year }}
 			</div>
 		</div>
 	</footer>

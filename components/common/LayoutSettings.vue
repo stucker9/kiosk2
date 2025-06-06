@@ -267,6 +267,19 @@ const fontFamilyKey = computed({
 	get: () => themeStore.currentFontFamilyKey,
 	set: val => themeStore.setFontFamily(val)
 })
+
+function onFontFamilyChange(value: string) {
+	console.log("LayoutSettings: Font family change requested:", value)
+	if (value === "default" || value === "display" || value === "mono") {
+		console.log("LayoutSettings: Setting font family to:", value)
+		themeStore.setFontFamily(value as "default" | "display" | "mono")
+		// Force update CSS variables
+		themeStore.setCssGlobalVars()
+		console.log("LayoutSettings: Current font family after change:", themeStore.currentFontFamilyKey)
+		console.log("LayoutSettings: Current font family value:", themeStore.fontFamily.default)
+	}
+}
+
 function setPrimary(color: ColorPalette) {
 	themeStore.setColor(ThemeNameEnum.Dark, "primary", color.dark)
 	themeStore.setColor(ThemeNameEnum.Light, "primary", color.light)

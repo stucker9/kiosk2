@@ -30,20 +30,6 @@ const menuOptions = ref([
 			),
 		key: "documentation",
 		icon: renderIcon(DocsIcon)
-	},
-	{
-		label: () =>
-			h(
-				"a",
-				{
-					href: "https://themeforest.net/item/pinx-vuejs-admin-template/47799543",
-					target: "_blank",
-					rel: "noopenner noreferrer"
-				},
-				"Buy now"
-			),
-		key: "buy-now",
-		icon: renderIcon(BuyIcon)
 	}
 ])
 

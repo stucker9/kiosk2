@@ -106,7 +106,7 @@ export function getThemeOverrides(state: ThemeState): GlobalThemeOverrides {
 			fontSize: state.fontSize.default,
 			fontWeight: state.fontWeight.default,
 			fontWeightStrong: state.fontWeight.strong,
-			fontFamily: state.fontFamily.default,
+			fontFamily: state.fontFamily[state.fontFamilyKey as keyof typeof state.fontFamily],
 			fontFamilyMono: state.fontFamily.mono,
 			borderColor,
 			hoverColor,
@@ -159,7 +159,7 @@ export function getCssVars(state: ThemeState, getters: ThemeGetters): { [key: st
 	const toolbarHeight = state.toolbarHeight
 	const viewPadding = state.viewPadding
 	const headerBarHeight = state.headerBarHeight
-	const fontFamily = state.fontFamily.default
+	const fontFamily = state.fontFamily[state.fontFamilyKey as keyof typeof state.fontFamily]
 	const fontFamilyDisplay = state.fontFamily.display
 	const fontFamilyMono = state.fontFamily.mono
 	const fontSize = state.fontSize.default

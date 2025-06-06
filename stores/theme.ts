@@ -101,6 +101,11 @@ export const useThemeStore = defineStore("theme", {
 				body.classList.remove("direction-rtl")
 				body.classList.add("direction-ltr")
 				const { style: htmlStyle } = html
+				console.warn("ThemeStore: Setting CSS variables:", {
+					"font-family": this.style["font-family"],
+					"font-family-display": this.style["font-family-display"],
+					"font-family-mono": this.style["font-family-mono"]
+				})
 				for (const key in this.style) {
 					htmlStyle.setProperty(`--${key}`, this.style[key])
 				}
@@ -133,9 +138,19 @@ export const useThemeStore = defineStore("theme", {
 			this.startWatchers()
 		},
 		setFontFamily(fontKey: "default" | "display" | "mono"): void {
+			console.warn("ThemeStore: Setting font family to:", fontKey)
 			this.fontFamilyKey = fontKey
-			// Update the default font family in state
-			this.fontFamily.default = this.fontFamily[fontKey]
+			// Update the font family values in the state
+			if (fontKey === "default") {
+				this.fontFamily.default =
+					"'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'"
+			} else if (fontKey === "display") {
+				this.fontFamily.display = "'Merriweather', Georgia, 'Times New Roman', serif"
+			} else if (fontKey === "mono") {
+				this.fontFamily.mono = "'JetBrains Mono', SFMono-Regular, Menlo, Consolas, Courier, monospace"
+			}
+			// Force update CSS variables
+			this.setCssGlobalVars()
 		}
 	},
 	getters: {
