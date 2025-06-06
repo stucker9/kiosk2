@@ -40,3 +40,4 @@ unplugin.components.d.ts
 .env.production
 .fleet
 .idea
+pnpm-lock.yaml

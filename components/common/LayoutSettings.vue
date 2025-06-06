@@ -247,7 +247,7 @@ const palette = ref<Palette>([
 	{ light: "#6267FF", dark: "#6267FF" },
 	{ light: "#FF61C9", dark: "#FF61C9" },
 	{ light: "#FFB600", dark: "#FFB600" },
-	{ light: "#FF0156", dark: "#FF0156" }
+	{ light: "#FF0000", dark: "#FF0000" }
 ])
 
 const fontFamilyOptions = [
