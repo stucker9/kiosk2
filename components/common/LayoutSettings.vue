@@ -417,7 +417,7 @@ function reset() {
 
 	&.open {
 		width: 230px;
-		height: 700px;
+		height: 680px;
 		right: 16px;
 		border-radius: var(--border-radius);
 		max-height: 90vh;
