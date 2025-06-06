@@ -145,14 +145,6 @@
 						<n-button class="mb-3! w-full!" strong secondary type="primary" @click="reset()">
 							Restore default
 						</n-button>
-						<a
-							href="https://pinx-docs.vercel.app/layout"
-							target="_blank"
-							alt="docs"
-							rel="nofollow noopener noreferrer"
-						>
-							Other settings
-						</a>
 					</div>
 				</n-scrollbar>
 			</div>

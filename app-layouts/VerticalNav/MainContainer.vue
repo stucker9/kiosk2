@@ -17,7 +17,11 @@
 			<div
 				id="app-view"
 				class="view"
-				:class="{ boxed, 'view-padded': overridePadded === true, 'view-no-padded': overridePadded === false }"
+				:class="{
+					'not-boxed': !boxed,
+					'view-padded': overridePadded === true,
+					'view-no-padded': overridePadded === false
+				}"
 			>
 				<slot />
 			</div>
@@ -106,8 +110,14 @@ onMounted(() => {
 		width: 100%;
 		margin: 0 auto;
 
-		&.boxed {
+		&.not-boxed {
 			max-width: var(--boxed-width);
+			width: 100%;
+			margin: 0 auto;
+			> * {
+				max-width: var(--boxed-width);
+				margin: 0 auto;
+			}
 		}
 		&.view-no-padded {
 			padding: 0;

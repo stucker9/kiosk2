@@ -18,12 +18,14 @@ export const useThemeStore = defineStore("theme", {
 		},
 		setBoxed(boxed: boolean): void {
 			this.boxed.enabled = boxed
+			this.setCssGlobalVars()
 		},
 		setFooterShow(show: boolean): void {
 			this.footer.show = show
 		},
 		setToolbarBoxed(boxed: boolean): void {
 			this.boxed.toolbar = boxed
+			this.setCssGlobalVars()
 		},
 		setRouterTransition(routerTransition: RouterTransition): void {
 			this.routerTransition = routerTransition
@@ -104,7 +106,8 @@ export const useThemeStore = defineStore("theme", {
 				console.warn("ThemeStore: Setting CSS variables:", {
 					"font-family": this.style["font-family"],
 					"font-family-display": this.style["font-family-display"],
-					"font-family-mono": this.style["font-family-mono"]
+					"font-family-mono": this.style["font-family-mono"],
+					"boxed-width": this.style["boxed-width"]
 				})
 				for (const key in this.style) {
 					htmlStyle.setProperty(`--${key}`, this.style[key])
@@ -119,10 +122,11 @@ export const useThemeStore = defineStore("theme", {
 			})
 
 			watch(
-				() => this.themeName,
-				(val, old) => {
-					this.setDocumentThemeName(val, old)
-				}
+				() => this.boxed,
+				() => {
+					this.setCssGlobalVars()
+				},
+				{ deep: true }
 			)
 
 			watch(width, () => {
