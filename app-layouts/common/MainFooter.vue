@@ -2,12 +2,12 @@
 	<footer class="footer py-4" :class="{ boxed }">
 		<div class="wrap flex items-center justify-end gap-3">
 			<div class="copy">
-				Made with
+				Made by
 				<Icon :size="22" class="text-primary mx-1">
-					<BrainIcon />
+					<MilitaryIcon />
 				</Icon>
-				By
-				<a href="https://osdri.org" target="_blank" alt="D*VERSE" rel="noopener noreferrer" class="mx-1">
+				for
+				<a href="https://osdri.org" target="_blank" alt="OSDRI" rel="noopener noreferrer" class="mx-1">
 					Operation Stand Down RI
 				</a>
 				All Rights Reserved © Copyright {{ year }}
@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-import BrainIcon from "@/assets/icons/brain-icon.svg"
+import MilitaryIcon from "@/assets/icons/healthicons--military-worker.svg"
 import Icon from "@/components/common/Icon.vue"
 
 const { boxed } = defineProps<{
