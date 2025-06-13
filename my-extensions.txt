@@ -24,7 +24,6 @@ humao.rest-client
 jacano.vscode-pnpm
 justarandomgeek.factoriomod-debug
 liamhammett.inline-parameters
-lokalise.i18n-ally
 mashedpotatostudios.nuxtian
 mechatroner.rainbow-csv
 mkxml.vscode-filesize

@@ -1,12 +1,6 @@
 import dayjs from "dayjs"
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import timezone from "dayjs/plugin/timezone"
-import "dayjs/locale/it"
-import "dayjs/locale/en"
-import "dayjs/locale/de"
-import "dayjs/locale/es"
-import "dayjs/locale/fr"
-import "dayjs/locale/ja"
 
 /*
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter"
