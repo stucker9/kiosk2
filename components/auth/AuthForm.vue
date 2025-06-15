@@ -9,9 +9,7 @@
 		<div class="my-10">
 			<Logo mini :dark="isDark" class="mb-4" max-height="40px" />
 			<div class="font-display mb-4 text-4xl font-bold">{{ title }}</div>
-			<div class="text-secondary mb-12 text-lg">
-				Today is a new day. It's your day. You shape it. Sign in to start managing your projects.
-			</div>
+			<div class="text-secondary mb-12 text-lg">Sign in to your account or create a new one to get started.</div>
 		</div>
 
 		<transition name="form-fade" mode="out-in" appear class="min-h-137">
@@ -21,7 +19,7 @@
 				</template>
 				<template #bottom-area>
 					<div class="text-center">
-						Don't you have an account?
+						Don't have an account?
 						<n-button text type="primary" size="large" @click="gotoSignUp()">Sign up</n-button>
 					</div>
 				</template>

@@ -1,66 +1,47 @@
 <template>
 	<div class="page p-4">
-		<n-config-provider>
-			<n-message-provider>
-				<n-card title="Welcome" class="mb-4">
-					<n-space vertical>
-						<n-text>This is a demo page showing Naive UI components</n-text>
-						<n-space>
-							<n-button dashed>Default</n-button>
-							<n-button type="primary" dashed>Primary</n-button>
-							<n-button type="info" dashed>Info</n-button>
-							<n-button type="success" dashed>Success</n-button>
-							<n-button type="warning" dashed>Warning</n-button>
-							<n-button type="error" dashed>Error</n-button>
-						</n-space>
-					</n-space>
-				</n-card>
-
-				<n-card title="Interactive Components" class="mb-4">
-					<n-space vertical>
-						<n-input v-model:value="inputValue" placeholder="Type something..." />
-						<n-select v-model:value="selectedValue" :options="options" placeholder="Select an option" />
-						<n-switch v-model:value="switchValue" />
-						<n-text>Switch is: {{ switchValue ? "on" : "off" }}</n-text>
-					</n-space>
-				</n-card>
-
-				<!-- Data Table Section -->
-				<n-card title="Demo Data Table" class="mb-4">
-					<n-space vertical>
-						<n-input v-model:value="search" placeholder="Search..." clearable class="mb-2" />
-						<n-data-table
-							:columns="columns"
-							:data="filteredRows"
-							:pagination="pagination"
-							:bordered="true"
-							:resizable="true"
-							:scroll-x="1200"
-							:row-key="rowKey"
-							:filter="filterOptions"
-							:max-height="500"
-						/>
-					</n-space>
-				</n-card>
-			</n-message-provider>
-		</n-config-provider>
+		<NMessageProvider>
+			<NCard title="Kiosk" class="mx-auto w-full max-w-3xl">
+				<NSpace vertical>
+					<NText>Search and filter the Visitors data table below:</NText>
+					<NInput
+						v-model:value="search"
+						placeholder="Search by name, phone, or date"
+						clearable
+						:style="{ width: '100%' }"
+					/>
+					<NSpace>
+						<NButton type="primary" @click="() => console.log('Search clicked')">Search</NButton>
+						<NButton @click="() => console.log('Reset clicked')">Reset</NButton>
+						<NButton type="info" @click="() => console.log('Export clicked')">Export Data</NButton>
+					</NSpace>
+					<NDataTable
+						class="mt-4"
+						:title="`Data Table (${filteredRows.length} items)`"
+						:columns="columns"
+						:data="filteredRows"
+						:pagination-options="{ pageSize: 10 }"
+						filter-options="filterOptions"
+					>
+						<template #row="{ row }">
+							<tr>
+								<td>{{ row.fullname }}</td>
+								<td>{{ row.phone }}</td>
+								<td>{{ row.lastVisit }}</td>
+								<td>{{ row.lastPantryVisit }}</td>
+								<td>{{ row.totalVisits }}</td>
+							</tr>
+						</template>
+					</NDataTable>
+				</NSpace>
+			</NCard>
+		</NMessageProvider>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { faker } from "@faker-js/faker"
-import {
-	NButton,
-	NCard,
-	NConfigProvider,
-	NDataTable,
-	NInput,
-	NMessageProvider,
-	NSelect,
-	NSpace,
-	NSwitch,
-	NText
-} from "naive-ui"
+import { NButton, NCard, NDataTable, NInput, NMessageProvider, NSpace, NSwitch, NText } from "naive-ui"
 import { computed, ref } from "vue"
 
 definePageMeta({
@@ -118,8 +99,7 @@ const columns = [
 		key: "lastVisit",
 		resizable: true,
 		filter: true,
-		sorter: (rowA: TableRow, rowB: TableRow) =>
-			new Date(rowA.lastVisit).getTime() - new Date(rowB.lastVisit).getTime()
+		sorter: (rowA: TableRow, rowB: TableRow) => new Date(rowA.lastVisit).getTime() - new Date(rowB.lastVisit).getTime()
 	},
 	{
 		title: "Last Pantry Visit",
