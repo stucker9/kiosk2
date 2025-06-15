@@ -20,13 +20,3 @@
 		}
 	}
 }
-.direction-rtl {
-	.layout-HorizontalNav {
-		.page-mobile-full {
-			@media (max-width: $sidebar-bp) {
-				right: calc(var(--view-padding) * -1);
-				left: unset;
-			}
-		}
-	}
-}

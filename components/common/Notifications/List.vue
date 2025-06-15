@@ -216,15 +216,4 @@ function deleteOne(id: string | number) {
 		}
 	}
 }
-
-.direction-rtl {
-	.notifications-list {
-		.item {
-			.delete-btn {
-				right: unset;
-				left: 8px;
-			}
-		}
-	}
-}
 </style>

@@ -2,7 +2,7 @@
 	<div class="layout-settings flex items-center justify-center shadow-xl" :class="{ open }">
 		<Transition mode="out-in" name="anim">
 			<div v-if="!open" key="btn" class="open-btn flex items-center justify-center" @click="open = true">
-				<Icon :size="24" :name="SettingsIcon" />
+				<Icon :size="34" :name="SettingsIcon" />
 			</div>
 
 			<div v-else key="form" class="ls-form flex flex-col">
@@ -27,11 +27,7 @@
 						<div class="palette mt-3 flex justify-around">
 							<n-button v-for="color of palette" :key="color.light" text @click="setPrimary(color)">
 								<template #icon>
-									<Icon
-										:color="theme === ThemeNameEnum.Dark ? color.dark : color.light"
-										:size="24"
-										:name="ColorIcon"
-									/>
+									<Icon :color="theme === ThemeNameEnum.Dark ? color.dark : color.light" :size="24" :name="ColorIcon" />
 								</template>
 							</n-button>
 						</div>
@@ -72,11 +68,7 @@
 					<div class="ls-section ls-font-family-selection">
 						<div class="ls-label">Font Family</div>
 						<div class="ls-input flex justify-between">
-							<n-select
-								v-model:value="fontFamilyKey"
-								:options="fontFamilyOptions"
-								@update:value="onFontFamilyChange"
-							/>
+							<n-select v-model:value="fontFamilyKey" :options="fontFamilyOptions" @update:value="onFontFamilyChange" />
 						</div>
 					</div>
 
@@ -122,11 +114,7 @@
 									Toolbar boxed
 									<span v-if="isMobileView" class="px-1 opacity-50">desktop only</span>
 								</div>
-								<n-switch
-									v-model:value="toolbarBoxed"
-									:disabled="!boxed || isMobileView"
-									size="small"
-								/>
+								<n-switch v-model:value="toolbarBoxed" :disabled="!boxed || isMobileView" size="small" />
 							</div>
 							<div class="flex items-center justify-between">
 								<div class="switch-label">Footer visible</div>
@@ -142,9 +130,7 @@
 						</div>
 					</div>
 					<div class="ls-section ls-reset-selection items-center">
-						<n-button class="mb-3! w-full!" strong secondary type="primary" @click="reset()">
-							Restore default
-						</n-button>
+						<n-button class="mb-3! w-full!" strong secondary type="primary" @click="reset()">Restore default</n-button>
 					</div>
 				</n-scrollbar>
 			</div>
@@ -438,37 +424,6 @@ function reset() {
 	.anim-leave-to {
 		opacity: 0;
 		// transform: translateY(1%);
-	}
-}
-
-.direction-rtl {
-	.layout-settings {
-		right: unset;
-		left: 10px;
-
-		.ls-form {
-			.ls-header {
-				direction: rtl;
-			}
-
-			:deep() {
-				.n-color-picker {
-					.n-color-picker-trigger {
-						.n-color-picker-trigger__fill {
-							.n-color-picker-trigger__value {
-								margin-left: unset !important;
-								margin-right: 44px;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		&.open {
-			right: unset;
-			left: 16px;
-		}
 	}
 }
 </style>

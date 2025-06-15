@@ -262,13 +262,4 @@ router.afterEach(route => {
 		}
 	}
 }
-
-.direction-rtl {
-	.pinned-pages {
-		.shortcuts-btn {
-			padding-right: 12px;
-			padding-left: 6px;
-		}
-	}
-}
 </style>

@@ -11,7 +11,6 @@ export default defineNuxtConfig({
 	modules: [
 		"@pinia/nuxt",
 		"pinia-plugin-persistedstate/nuxt",
-		"@nuxtjs/i18n",
 		"@nuxtjs/device",
 		"nuxt-svgo",
 		"@nuxt/test-utils/module",

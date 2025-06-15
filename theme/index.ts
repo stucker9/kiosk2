@@ -18,7 +18,6 @@ export function getDefaultState() {
 		themeName: osTheme.value === "dark" ? ThemeNameEnum.Dark : ThemeNameEnum.Light, // Theme name (Dark, Light), with fallback to the light theme
 		routerTransition: RouterTransition.FadeUp, // Type of transition for the router
 		routerTransitionDuration: 0.3, // Duration of the router transition in seconds
-		rtl: false, // RTL (right to left) mode toggle
 		boxed: {
 			enabled: true, // Choose whether to apply a maximum width to the page
 			toolbar: true, // Choose whether to apply the maximum width to the toolbar as well

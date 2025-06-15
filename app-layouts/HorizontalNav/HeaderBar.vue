@@ -41,17 +41,4 @@ const isDark = computed<boolean>(() => themeStore.isThemeDark)
 		display: none;
 	}
 }
-
-.direction-rtl {
-	.header-bar {
-		direction: rtl;
-		padding-left: 0;
-		padding-right: var(--view-padding);
-
-		.nav {
-			margin-right: 0;
-			margin-left: var(--view-padding);
-		}
-	}
-}
 </style>

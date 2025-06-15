@@ -106,16 +106,4 @@ const isDark = computed<boolean>(() => themeStore.isThemeDark)
 		}
 	}
 }
-
-.direction-rtl {
-	.sidebar-header {
-		.sidebar-pin {
-			.i-small {
-				svg {
-					transform: rotateY(180deg);
-				}
-			}
-		}
-	}
-}
 </style>

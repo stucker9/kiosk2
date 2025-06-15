@@ -1,6 +1,5 @@
 {
 	"recommendations": [
-		"lokalise.i18n-ally",
 		"dbaeumer.vscode-eslint",
 		"antfu.iconify",
 		"esbenp.prettier-vscode",

@@ -170,14 +170,4 @@ function handleUpdateExpandedKeys(value: string[]) {
 		}
 	}
 }
-
-.direction-rtl {
-	.nav {
-		:deep() {
-			.n-submenu-children {
-				--dash-offset: 25px;
-			}
-		}
-	}
-}
 </style>

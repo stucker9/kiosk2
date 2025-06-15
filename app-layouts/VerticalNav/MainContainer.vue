@@ -153,24 +153,4 @@ onMounted(() => {
 		}
 	}
 }
-
-.direction-rtl {
-	.main {
-		padding-left: unset;
-		padding-right: var(--sidebar-open-width);
-
-		&.sidebar-collapsed {
-			padding-left: unset;
-			padding-right: var(--sidebar-close-width);
-		}
-
-		@media (max-width: $sidebar-bp) {
-			padding-right: 0px;
-
-			&.sidebar-collapsed {
-				padding-right: 0px;
-			}
-		}
-	}
-}
 </style>

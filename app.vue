@@ -64,7 +64,6 @@ import VerticalNav from "@/app-layouts/VerticalNav"
 import LayoutSettings from "@/components/common/LayoutSettings.vue"
 import SearchDialog from "@/components/common/SearchDialog.vue"
 import { useAuthStore } from "@/stores/auth"
-import { useLocalesStore } from "@/stores/i18n"
 import { useMainStore } from "@/stores/main"
 import { useThemeStore } from "@/stores/theme"
 import "@/assets/scss/index.scss"
@@ -115,8 +114,6 @@ onBeforeMount(() => {
 	const meta = document.createElement("meta")
 	meta.name = "naive-ui-style"
 	document.head.appendChild(meta)
-
-	useLocalesStore().initLocale()
 
 	checkThemeOverrides(route)
 

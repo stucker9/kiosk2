@@ -14,7 +14,6 @@ const { collapsed = false } = defineProps<{
 	collapsed?: boolean
 }>()
 
-const BuyIcon = "carbon:shopping-cart"
 const DocsIcon = "ion:book-outline"
 const menuOptions = ref([
 	{

@@ -102,27 +102,4 @@ onMounted(() => {
 		}
 	}
 }
-
-.direction-rtl {
-	.search-btn {
-		padding-right: 10px;
-		padding-left: 6px;
-
-		.search-btn-icon {
-			transform: rotateY(180deg);
-		}
-
-		:deep() {
-			& > code {
-				border-top-left-radius: 10px;
-				border-bottom-left-radius: 10px;
-				padding-left: 10px;
-
-				border-top-right-radius: var(--n-code-border-radius);
-				border-bottom-right-radius: var(--n-code-border-radius);
-				padding-right: 0.35em;
-			}
-		}
-	}
-}
 </style>

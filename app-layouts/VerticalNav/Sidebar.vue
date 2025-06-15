@@ -123,19 +123,4 @@ onMounted(() => {
 		}
 	}
 }
-
-.direction-rtl {
-	.sidebar {
-		left: unset;
-		right: 0;
-
-		@media (max-width: $sidebar-bp) {
-			transform: translateX(100%);
-
-			&.opened {
-				transform: translateX(0%);
-			}
-		}
-	}
-}
 </style>

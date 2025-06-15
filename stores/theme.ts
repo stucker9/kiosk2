@@ -99,9 +99,6 @@ export const useThemeStore = defineStore("theme", {
 		setCssGlobalVars() {
 			if (document) {
 				const html = document.children[0] as HTMLElement
-				const body = document.getElementsByTagName("body")?.[0]
-				body.classList.remove("direction-rtl")
-				body.classList.add("direction-ltr")
 				const { style: htmlStyle } = html
 				console.warn("ThemeStore: Setting CSS variables:", {
 					"font-family": this.style["font-family"],

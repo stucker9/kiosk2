@@ -147,16 +147,4 @@ useLoadingBarSetup()
 		);
 	}
 }
-
-.direction-rtl {
-	.toolbar {
-		.wrap {
-			.logo-box {
-				.n-icon {
-					transform: rotateY(180deg);
-				}
-			}
-		}
-	}
-}
 </style>
