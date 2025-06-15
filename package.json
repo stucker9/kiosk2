@@ -1,10 +1,10 @@
 {
-	"name": "pinx-nuxt-kit",
+	"name": "osdri-kiosk",
 	"type": "module",
 	"version": "1.20.0",
 	"private": true,
 	"engines": {
-		"node": ">=18.0.0"
+		"node": ">=22.16.0"
 	},
 	"scripts": {
 		"dev": "nuxt dev",
