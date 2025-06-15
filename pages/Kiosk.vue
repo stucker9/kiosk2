@@ -64,7 +64,7 @@ import {
 import { computed, ref } from "vue"
 
 definePageMeta({
-	title: "Home",
+	title: "Kiosk",
 	auth: true,
 	roles: "all"
 })
