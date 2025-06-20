@@ -20,18 +20,12 @@ export default defineNuxtConfig({
 	app: {
 		rootId: "app"
 	},
-	css: ["~/tailwind.css"],
+	css: ["~~/tailwind.css"],
 	eslint: {
 		config: {
 			standalone: false
 		}
 	},
-	components: [
-		{
-			path: "~/components/common",
-			pathPrefix: false
-		}
-	],
 	svgo: {
 		defaultImport: "component"
 	},
@@ -83,6 +77,9 @@ export default defineNuxtConfig({
 			ignore: pagesGenerateExclude,
 			routes: ["/"]
 		}
+	},
+	future: {
+		compatibilityVersion: 4
 	},
 	compatibilityDate: "2025-02-15"
 })

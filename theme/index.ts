@@ -1,7 +1,8 @@
 import type { GlobalThemeOverrides, ThemeCommonVars } from "naive-ui"
+import type { BuiltInGlobalTheme } from "naive-ui/es/themes/interface"
 import { useOsTheme } from "naive-ui"
-import tokens from "@/design-tokens.json"
-import { Layout, RouterTransition, ThemeNameEnum } from "@/types/theme.d"
+import tokens from "~~/design-tokens.json"
+import { Layout, RouterTransition, ThemeNameEnum } from "~~/types/theme.d"
 import { colorToArray, expandPattern, getThemeColors, getTypeValue } from "@/utils/theme"
 
 type ThemeState = ReturnType<typeof getDefaultState>
@@ -205,7 +206,10 @@ export function getCssVars(state: ThemeState, getters: ThemeGetters): { [key: st
 		const keys = expandPattern(pattern)
 
 		for (const key of keys) {
-			styleObject[`${key}-color`] = (state.colors[state.themeName] as Record<string, string>)[key]
+			const colorValue = (state.colors[state.themeName] as Record<string, string>)[key]
+			if (colorValue) {
+				styleObject[`${key}-color`] = colorValue
+			}
 		}
 	}
 
