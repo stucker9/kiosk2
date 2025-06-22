@@ -1,5 +1,4 @@
 import type { GlobalThemeOverrides, ThemeCommonVars } from "naive-ui"
-import type { BuiltInGlobalTheme } from "naive-ui/es/themes/interface"
 import { useOsTheme } from "naive-ui"
 import tokens from "~~/design-tokens.json"
 import { Layout, RouterTransition, ThemeNameEnum } from "~~/types/theme.d"

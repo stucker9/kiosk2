@@ -22,11 +22,11 @@
 
 			<!-- Services Grid -->
 			<div class="services-grid">
-				<div 
-					v-for="service in availableServices" 
+				<div
+					v-for="service in availableServices"
 					:key="service.id"
 					class="service-item"
-					:class="{ 
+					:class="{
 						'selected': selectedServices.includes(service.id),
 						'disabled': service.disabled
 					}"
@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="service-checkbox">
-						<n-checkbox 
+						<n-checkbox
 							:checked="selectedServices.includes(service.id)"
 							:disabled="service.disabled"
 							@update:checked="toggleService(service)"
@@ -54,8 +54,8 @@
 
 			<!-- Action Buttons -->
 			<div class="actions">
-				<n-button 
-					size="large" 
+				<n-button
+					size="large"
 					class="back-btn"
 					@click="$emit('back')"
 				>
@@ -63,9 +63,9 @@
 					Back
 				</n-button>
 
-				<n-button 
-					size="large" 
-					type="primary" 
+				<n-button
+					size="large"
+					type="primary"
 					class="submit-btn"
 					:disabled="selectedServices.length === 0"
 					@click="$emit('next')"
@@ -79,8 +79,8 @@
 			<div v-if="selectedServices.length > 0" class="selected-summary">
 				<h4>Selected Services ({{ selectedServices.length }})</h4>
 				<div class="selected-list">
-					<n-tag 
-						v-for="serviceId in selectedServices" 
+					<n-tag
+						v-for="serviceId in selectedServices"
 						:key="serviceId"
 						:type="getServiceById(serviceId)?.type || 'default'"
 						round
@@ -96,8 +96,8 @@
 </template>
 
 <script setup lang="ts">
+import { NAlert, NButton, NCheckbox, NTag } from 'naive-ui'
 import { computed, ref, watch } from 'vue'
-import { NButton, NCheckbox, NAlert, NTag } from 'naive-ui'
 import Icon from '@/components/common/Icon.vue'
 
 // Props
@@ -187,7 +187,7 @@ const availableServices = computed(() => {
 			return {
 				...service,
 				disabled: !isEligible.eligible,
-				disabledReason: isEligible.eligible ? '' : 'Not eligible until ' + isEligible.nextDate
+				disabledReason: isEligible.eligible ? '' : `Not eligible until ${isEligible.nextDate}`
 			}
 		}
 		return service
@@ -206,20 +206,20 @@ const nextPantryEligibilityDate = computed(() => {
 })
 
 // Methods
-const toggleService = (service: any) => {
+function toggleService(service: any) {
 	if (service.disabled) return
-	
+
 	const index = localSelectedServices.value.indexOf(service.id)
 	if (index > -1) {
 		localSelectedServices.value.splice(index, 1)
 	} else {
 		localSelectedServices.value.push(service.id)
 	}
-	
+
 	emit('services-updated', localSelectedServices.value)
 }
 
-const removeService = (serviceId: string) => {
+function removeService(serviceId: string) {
 	const index = localSelectedServices.value.indexOf(serviceId)
 	if (index > -1) {
 		localSelectedServices.value.splice(index, 1)
@@ -227,36 +227,36 @@ const removeService = (serviceId: string) => {
 	}
 }
 
-const getServiceById = (serviceId: string) => {
+function getServiceById(serviceId: string) {
 	return servicesData.find(service => service.id === serviceId)
 }
 
-const checkPantryEligibility = () => {
+function checkPantryEligibility() {
 	// Mock pantry eligibility check - replace with actual API call
 	// This should check the visitor's last pantry visit date
 	const lastPantryVisit = getLastPantryVisit()
 	const today = new Date()
 	const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000))
-	
+
 	if (!lastPantryVisit || new Date(lastPantryVisit) < thirtyDaysAgo) {
 		return { eligible: true, nextDate: null }
 	} else {
 		const nextEligible = new Date(lastPantryVisit)
 		nextEligible.setDate(nextEligible.getDate() + 30)
-		return { 
-			eligible: false, 
-			nextDate: nextEligible.toLocaleDateString() 
+		return {
+			eligible: false,
+			nextDate: nextEligible.toLocaleDateString()
 		}
 	}
 }
 
-const hasUsedPantryBefore = () => {
+function hasUsedPantryBefore() {
 	// Mock check - replace with actual API call
 	const lastPantryVisit = getLastPantryVisit()
 	return !!lastPantryVisit
 }
 
-const getLastPantryVisit = () => {
+function getLastPantryVisit() {
 	// Mock data - replace with actual API call
 	// This should fetch the visitor's last pantry visit from the database
 	return null // Return null if never used, or date string if used before
@@ -508,4 +508,4 @@ watch(() => props.selectedServices, (newValue) => {
 		text-align: center;
 	}
 }
-</style> 
+</style>

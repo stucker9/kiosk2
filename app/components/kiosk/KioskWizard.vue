@@ -2,15 +2,12 @@
 	<div class="kiosk-wizard">
 		<!-- Step 1: Home Screen -->
 		<div v-if="currentStep === 1" class="step-container">
-			<Step1Home 
-				@next="goToStep(2)" 
-				@privacy-notice="showPrivacyNotice = true" 
-			/>
+			<Step1Home @next="goToStep(2)" @privacy-notice="showPrivacyNotice = true" />
 		</div>
 
 		<!-- Step 2: Phone Number Input -->
 		<div v-if="currentStep === 2" class="step-container">
-			<Step2PhoneInput 
+			<Step2PhoneInput
 				:phone-number="phoneNumber"
 				@phone-updated="phoneNumber = $event"
 				@next="handlePhoneSubmit"
@@ -20,7 +17,7 @@
 
 		<!-- Step 3: Services Selection -->
 		<div v-if="currentStep === 3" class="step-container">
-			<Step3Services 
+			<Step3Services
 				:selected-services="selectedServices"
 				:visitor-data="visitorData"
 				@services-updated="selectedServices = $event"
@@ -31,7 +28,7 @@
 
 		<!-- Step 4: Confirmation -->
 		<div v-if="currentStep === 4" class="step-container">
-			<Step4Confirmation 
+			<Step4Confirmation
 				:visitor-data="visitorData"
 				:selected-services="selectedServices"
 				@confirm="handleConfirmation"
@@ -43,8 +40,15 @@
 		<n-modal v-model:show="showPrivacyNotice" preset="card" title="Privacy Notice" class="privacy-modal">
 			<div class="privacy-content">
 				<h3>Privacy Notice</h3>
-				<p>Your privacy is important to us. This kiosk system collects and stores your information for the purpose of providing services and maintaining records of your visits.</p>
-				<p>We use your phone number to identify you and track your service usage. Your information is kept confidential and is only used for service delivery and administrative purposes.</p>
+				<p>
+					Your privacy is important to us. This kiosk system collects and stores your information for the purpose of
+					providing services and maintaining records of your visits.
+				</p>
+				<p>
+					We use your phone number to identify you and track your service usage. Your information is kept confidential
+					and is only used for service metrics, administration purposes, and for providing accurate numbers to our
+					grantors.
+				</p>
 				<p>By using this kiosk, you consent to the collection and use of your information as described above.</p>
 			</div>
 			<template #footer>
@@ -57,9 +61,7 @@
 			<div class="error-content">
 				<h3>{{ errorTitle }}</h3>
 				<p>{{ errorMessage }}</p>
-				<div v-if="countdown > 0" class="countdown">
-					Resetting in {{ countdown }} seconds...
-				</div>
+				<div v-if="countdown > 0" class="countdown">Resetting in {{ countdown }} seconds...</div>
 			</div>
 			<template #footer>
 				<n-button v-if="countdown === 0" type="primary" @click="resetKiosk">OK</n-button>
@@ -81,16 +83,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { NModal, NButton } from 'naive-ui'
-import Step1Home from './steps/Step1Home.vue'
-import Step2PhoneInput from './steps/Step2PhoneInput.vue'
-import Step3Services from './steps/Step3Services.vue'
-import Step4Confirmation from './steps/Step4Confirmation.vue'
+import { NButton, NModal } from "naive-ui"
+import { onMounted, ref } from "vue"
+import Step1Home from "./steps/Step1Home.vue"
+import Step2PhoneInput from "./steps/Step2PhoneInput.vue"
+import Step3Services from "./steps/Step3Services.vue"
+import Step4Confirmation from "./steps/Step4Confirmation.vue"
 
 // Step management
 const currentStep = ref(1)
-const phoneNumber = ref('')
+const phoneNumber = ref("")
 const selectedServices = ref<string[]>([])
 const visitorData = ref<any>(null)
 
@@ -98,51 +100,52 @@ const visitorData = ref<any>(null)
 const showPrivacyNotice = ref(false)
 const showErrorModal = ref(false)
 const showStaffOverrideModal = ref(false)
-const errorTitle = ref('')
-const errorMessage = ref('')
+const errorTitle = ref("")
+const errorMessage = ref("")
 const countdown = ref(0)
-const staffOverrideMessage = ref('')
+const staffOverrideMessage = ref("")
 
 // Navigation
-const goToStep = (step: number) => {
+function goToStep(step: number) {
 	currentStep.value = step
 }
 
 // Phone number submission handler
-const handlePhoneSubmit = async () => {
+async function handlePhoneSubmit() {
 	try {
 		// Simulate API call to check visitor
 		const response = await checkVisitor(phoneNumber.value)
-		
-		if (response.status === 'no-match') {
-			showError('Phone Number Not Found', 
-				'Check phone number. Does not exist or is incorrect. Make sure to use the phone number initially provided. If you do not remember your login, do not provide ID and register again, instead have the staff member look your name up and provide your number or update your number.')
+
+		if (response.status === "no-match") {
+			showError(
+				"Phone Number Not Found",
+				"Check phone number. Does not exist or is incorrect. Make sure to use the phone number initially provided. If you do not remember your login, do not provide ID and register again, instead have the staff member look your name up and provide your number or update your number."
+			)
 			// Alert staff member dashboard
 			alertStaffMember(phoneNumber.value)
-		} else if (response.status === 'flagged-no-serve') {
-			showError('Unable to Help', 
-				'We are unable to help you at this time. Seek staff member for further assistance.')
+		} else if (response.status === "flagged-no-serve") {
+			showError("Unable to Help", "We are unable to help you at this time. Seek staff member for further assistance.")
 			startCountdown(30)
-		} else if (response.status === 'flagged-staff-override') {
+		} else if (response.status === "flagged-staff-override") {
 			staffOverrideMessage.value = `${response.staffMember} requests to speak with you after checking in.`
 			showStaffOverrideModal.value = true
 			visitorData.value = response.visitorData
-		} else if (response.status === 'success') {
+		} else if (response.status === "success") {
 			visitorData.value = response.visitorData
 			goToStep(3)
 		}
 	} catch (error) {
-		showError('System Error', 'An error occurred. Please try again or contact staff.')
+		showError("System Error", "An error occurred. Please try again or contact staff.")
 	}
 }
 
 // Services submission handler
-const handleServicesSubmit = () => {
+function handleServicesSubmit() {
 	goToStep(4)
 }
 
 // Confirmation handler
-const handleConfirmation = async () => {
+async function handleConfirmation() {
 	try {
 		// Submit visit data
 		await submitVisit({
@@ -150,16 +153,16 @@ const handleConfirmation = async () => {
 			services: selectedServices.value,
 			checkInTime: new Date().toISOString()
 		})
-		
+
 		// Reset and return to step 1
 		resetKiosk()
 	} catch (error) {
-		showError('Submission Error', 'Failed to submit visit. Please try again.')
+		showError("Submission Error", "Failed to submit visit. Please try again.")
 	}
 }
 
 // Staff override handler
-const handleStaffOverride = () => {
+function handleStaffOverride() {
 	showStaffOverrideModal.value = false
 	setTimeout(() => {
 		goToStep(3)
@@ -167,13 +170,13 @@ const handleStaffOverride = () => {
 }
 
 // Error handling
-const showError = (title: string, message: string) => {
+function showError(title: string, message: string) {
 	errorTitle.value = title
 	errorMessage.value = message
 	showErrorModal.value = true
 }
 
-const startCountdown = (seconds: number) => {
+function startCountdown(seconds: number) {
 	countdown.value = seconds
 	const interval = setInterval(() => {
 		countdown.value--
@@ -184,9 +187,9 @@ const startCountdown = (seconds: number) => {
 	}, 1000)
 }
 
-const resetKiosk = () => {
+function resetKiosk() {
 	currentStep.value = 1
-	phoneNumber.value = ''
+	phoneNumber.value = ""
 	selectedServices.value = []
 	visitorData.value = null
 	showErrorModal.value = false
@@ -195,38 +198,38 @@ const resetKiosk = () => {
 }
 
 // Mock API functions (replace with actual API calls)
-const checkVisitor = async (phone: string) => {
+async function checkVisitor(phone: string) {
 	// Simulate API delay
 	await new Promise(resolve => setTimeout(resolve, 1000))
-	
+
 	// Mock responses - replace with actual API logic
-	if (phone === '555-0000') {
-		return { status: 'no-match' }
-	} else if (phone === '555-0001') {
-		return { status: 'flagged-no-serve' }
-	} else if (phone === '555-0002') {
-		return { 
-			status: 'flagged-staff-override',
-			staffMember: 'John Smith',
-			visitorData: { id: 1, name: 'Jane Doe', phone: phone }
+	if (phone === "555-0000") {
+		return { status: "no-match" }
+	} else if (phone === "555-0001") {
+		return { status: "flagged-no-serve" }
+	} else if (phone === "555-0002") {
+		return {
+			status: "flagged-staff-override",
+			staffMember: "John Smith",
+			visitorData: { id: 1, name: "Jane Doe", phone }
 		}
 	} else {
-		return { 
-			status: 'success',
-			visitorData: { id: 1, name: 'Jane Doe', phone: phone }
+		return {
+			status: "success",
+			visitorData: { id: 1, name: "Jane Doe", phone }
 		}
 	}
 }
 
-const alertStaffMember = (phone: string) => {
+function alertStaffMember(phone: string) {
 	// Implement staff alert system
-	console.log('Alerting staff about phone number:', phone)
+	console.log("Alerting staff about phone number:", phone)
 }
 
-const submitVisit = async (visitData: any) => {
+async function submitVisit(visitData: any) {
 	// Simulate API delay
 	await new Promise(resolve => setTimeout(resolve, 1000))
-	console.log('Submitting visit:', visitData)
+	console.log("Submitting visit:", visitData)
 }
 
 onMounted(() => {
@@ -272,4 +275,4 @@ onMounted(() => {
 	margin-top: 20px;
 	text-align: center;
 }
-</style> 
+</style>

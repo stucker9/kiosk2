@@ -11,7 +11,7 @@
 			<div class="visit-summary">
 				<div class="summary-card">
 					<h3>Visit Summary</h3>
-					
+
 					<div class="visitor-info">
 						<div class="info-item">
 							<Icon :name="UserIcon" :size="20" />
@@ -30,8 +30,8 @@
 					<div class="services-summary">
 						<h4>Selected Services ({{ selectedServices.length }})</h4>
 						<div class="services-list">
-							<div 
-								v-for="serviceId in selectedServices" 
+							<div
+								v-for="serviceId in selectedServices"
 								:key="serviceId"
 								class="service-item"
 							>
@@ -66,10 +66,10 @@
 				<div class="rating-card">
 					<h3>Rate Your Experience</h3>
 					<p class="rating-subtitle">Please rate your experience with OSDRI services based on past encounters. (Optional)</p>
-					
+
 					<div class="rating-stars">
-						<n-rate 
-							v-model:value="rating" 
+						<n-rate
+							v-model:value="rating"
 							:count="5"
 							size="large"
 							:show-score="false"
@@ -95,8 +95,8 @@
 
 			<!-- Action Buttons -->
 			<div class="actions">
-				<n-button 
-					size="large" 
+				<n-button
+					size="large"
 					class="back-btn"
 					@click="$emit('back')"
 				>
@@ -104,9 +104,9 @@
 					Back
 				</n-button>
 
-				<n-button 
-					size="large" 
-					type="primary" 
+				<n-button
+					size="large"
+					type="primary"
 					class="confirm-btn"
 					@click="handleConfirm"
 				>
@@ -119,8 +119,8 @@
 </template>
 
 <script setup lang="ts">
+import { NAlert, NButton, NInput, NRate } from 'naive-ui'
 import { computed, ref } from 'vue'
-import { NButton, NAlert, NRate, NInput } from 'naive-ui'
 import Icon from '@/components/common/Icon.vue'
 
 // Props
@@ -176,7 +176,7 @@ const nextPantryEligibilityDate = computed(() => {
 })
 
 // Methods
-const formatPhone = (phone: string) => {
+function formatPhone(phone: string) {
 	if (!phone) return 'N/A'
 	if (phone.length === 10) {
 		return `(${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6)}`
@@ -184,15 +184,15 @@ const formatPhone = (phone: string) => {
 	return phone
 }
 
-const getServiceTitle = (serviceId: string) => {
+function getServiceTitle(serviceId: string) {
 	return servicesMap[serviceId as keyof typeof servicesMap]?.title || serviceId
 }
 
-const getServiceIcon = (serviceId: string) => {
+function getServiceIcon(serviceId: string) {
 	return servicesMap[serviceId as keyof typeof servicesMap]?.icon || 'mdi:help-circle'
 }
 
-const handleConfirm = () => {
+function handleConfirm() {
 	// Submit rating if provided
 	if (rating.value > 0) {
 		submitRating({
@@ -202,46 +202,46 @@ const handleConfirm = () => {
 			date: new Date().toISOString()
 		})
 	}
-	
+
 	emit('confirm')
 }
 
-const getVisitCount = () => {
+function getVisitCount() {
 	// Mock data - replace with actual API call
 	// This should return the number of previous visits
 	return 3 // Mock value for testing
 }
 
-const hasUsedPantryBefore = () => {
+function hasUsedPantryBefore() {
 	// Mock check - replace with actual API call
 	const lastPantryVisit = getLastPantryVisit()
 	return !!lastPantryVisit
 }
 
-const checkPantryEligibility = () => {
+function checkPantryEligibility() {
 	// Mock pantry eligibility check - replace with actual API call
 	const lastPantryVisit = getLastPantryVisit()
 	const today = new Date()
 	const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000))
-	
+
 	if (!lastPantryVisit || new Date(lastPantryVisit) < thirtyDaysAgo) {
 		return { eligible: true, nextDate: null }
 	} else {
 		const nextEligible = new Date(lastPantryVisit)
 		nextEligible.setDate(nextEligible.getDate() + 30)
-		return { 
-			eligible: false, 
-			nextDate: nextEligible.toLocaleDateString() 
+		return {
+			eligible: false,
+			nextDate: nextEligible.toLocaleDateString()
 		}
 	}
 }
 
-const getLastPantryVisit = () => {
+function getLastPantryVisit() {
 	// Mock data - replace with actual API call
 	return '2024-01-15' // Mock date for testing
 }
 
-const submitRating = async (ratingData: any) => {
+async function submitRating(ratingData: any) {
 	// Mock API call - replace with actual submission
 	console.log('Submitting rating:', ratingData)
 	await new Promise(resolve => setTimeout(resolve, 500))
@@ -493,4 +493,4 @@ const submitRating = async (ratingData: any) => {
 		padding: 10px;
 	}
 }
-</style> 
+</style>

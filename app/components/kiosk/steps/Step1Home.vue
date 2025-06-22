@@ -10,9 +10,9 @@
 
 			<!-- Main Action Button -->
 			<div class="main-action">
-				<n-button 
-					size="large" 
-					type="primary" 
+				<n-button
+					size="large"
+					type="primary"
 					class="checkin-btn"
 					@click="$emit('next')"
 				>
@@ -25,9 +25,9 @@
 
 			<!-- Privacy Notice Button -->
 			<div class="privacy-section">
-				<n-button 
-					text 
-					type="info" 
+				<n-button
+					text
+					type="info"
 					class="privacy-btn"
 					@click="$emit('privacy-notice')"
 				>
@@ -48,16 +48,15 @@
 import { NButton } from 'naive-ui'
 import Icon from '@/components/common/Icon.vue'
 
-// Icons
-const LogoIcon = 'healthicons--military-worker'
-const TouchIcon = 'mdi:hand-pointing-up'
-const InfoIcon = 'mdi:information-outline'
-
 // Emit events
 defineEmits<{
 	next: []
 	'privacy-notice': []
 }>()
+// Icons
+const LogoIcon = 'healthicons--military-worker'
+const TouchIcon = 'mdi:hand-pointing-up'
+const InfoIcon = 'mdi:information-outline'
 </script>
 
 <style scoped>
@@ -204,4 +203,4 @@ defineEmits<{
 		font-size: 20px;
 	}
 }
-</style> 
+</style>

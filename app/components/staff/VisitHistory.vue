@@ -28,7 +28,7 @@
 					placeholder="Date range"
 					class="date-filter"
 				/>
-				<n-button @click="resetFilters" text>
+				<n-button text @click="resetFilters">
 					<Icon :name="ResetIcon" :size="16" />
 					Reset
 				</n-button>
@@ -52,8 +52,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, h } from 'vue'
-import { NInput, NSelect, NDatePicker, NButton, NDataTable, NTag } from 'naive-ui'
+import { NButton, NDataTable, NDatePicker, NInput, NSelect, NTag } from 'naive-ui'
+import { computed, h, ref } from 'vue'
 import Icon from '@/components/common/Icon.vue'
 
 // Props
@@ -119,15 +119,13 @@ const columns = [
 		title: 'Services',
 		key: 'services',
 		render: (row: any) => {
-			return h('div', { class: 'services-tags' }, 
-				row.services.map((service: string) => 
+			return h('div', { class: 'services-tags' }, row.services.map((service: string) =>
 					h(NTag, {
 						type: getServiceType(service),
 						size: 'small',
 						style: { marginRight: '4px', marginBottom: '4px' }
 					}, { default: () => getServiceTitle(service) })
-				)
-			)
+				))
 		}
 	},
 	{
@@ -166,7 +164,7 @@ const filteredVisits = computed(() => {
 		filtered = filtered.filter(visit =>
 			visit.visitorName.toLowerCase().includes(query) ||
 			visit.phone.toLowerCase().includes(query) ||
-			visit.services.some((service: string) => 
+			visit.services.some((service: string) =>
 				getServiceTitle(service).toLowerCase().includes(query)
 			) ||
 			(visit.notes && visit.notes.toLowerCase().includes(query))
@@ -198,25 +196,25 @@ const filteredVisits = computed(() => {
 // Methods
 const rowKey = (row: any) => row.id
 
-const resetFilters = () => {
+function resetFilters() {
 	searchQuery.value = ''
 	serviceFilter.value = null
 	dateRange.value = null
 }
 
-const handleEditVisit = (visit: any) => {
+function handleEditVisit(visit: any) {
 	emit('edit-visit', visit)
 }
 
-const handleDeleteVisit = (visitId: number) => {
+function handleDeleteVisit(visitId: number) {
 	emit('delete-visit', visitId)
 }
 
-const formatDateTime = (dateTime: string) => {
+function formatDateTime(dateTime: string) {
 	return new Date(dateTime).toLocaleString()
 }
 
-const getServiceType = (service: string) => {
+function getServiceType(service: string) {
 	const serviceTypes: { [key: string]: string } = {
 		pantry: 'success',
 		clothing: 'info',
@@ -228,7 +226,7 @@ const getServiceType = (service: string) => {
 	return serviceTypes[service] || 'default'
 }
 
-const getServiceTitle = (service: string) => {
+function getServiceTitle(service: string) {
 	const serviceTitles: { [key: string]: string } = {
 		pantry: 'Food Pantry',
 		clothing: 'Clothing',
@@ -323,4 +321,4 @@ const getServiceTitle = (service: string) => {
 		gap: 4px;
 	}
 }
-</style> 
+</style>

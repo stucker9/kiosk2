@@ -40,7 +40,6 @@
 
 			<SplashScreen :show="loading" />
 			<SearchDialog v-if="isLogged" />
-			<LayoutSettings />
 		</ClientOnly>
 	</Provider>
 </template>
@@ -51,13 +50,13 @@ import type { RouteLocationNormalized } from "vue-router"
 import type { Layout, RouterTransition, ThemeNameEnum } from "~~/types/theme.d"
 import { computed, onBeforeMount, ref, watch } from "vue"
 import { useRoute, useRouter } from "vue-router"
+
+import SearchDialog from "@/components/common/SearchDialog.vue"
 import Blank from "@/layouts/Blank"
 import Provider from "@/layouts/common/Provider.vue"
 import SplashScreen from "@/layouts/common/SplashScreen.vue"
 import HorizontalNav from "@/layouts/HorizontalNav"
 import VerticalNav from "@/layouts/VerticalNav"
-import LayoutSettings from "@/components/common/LayoutSettings.vue"
-import SearchDialog from "@/components/common/SearchDialog.vue"
 import { useAuthStore } from "@/stores/auth"
 import { useMainStore } from "@/stores/main"
 import { useThemeStore } from "@/stores/theme"

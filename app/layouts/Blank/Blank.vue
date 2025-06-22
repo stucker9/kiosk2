@@ -3,7 +3,6 @@
 </template>
 
 <script lang="ts" setup>
-import MainContainer from "./MainContainer.vue"
 import "./main.scss"
 </script>
 

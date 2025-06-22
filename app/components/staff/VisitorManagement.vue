@@ -21,7 +21,7 @@
 					placeholder="Sort by"
 					class="filter-select"
 				/>
-				<n-button @click="resetFilters" text>
+				<n-button text @click="resetFilters">
 					<Icon :name="ResetIcon" :size="16" />
 					Reset
 				</n-button>
@@ -43,11 +43,11 @@
 		</div>
 
 		<!-- Visitor Details Modal -->
-		<n-modal v-model:show="showVisitorDetails" preset="card" title="Visitor Details" class="visitor-details-modal">
+		<n-modal v-model:show="showVisitorDetails" preset="card" title="Visitor Details" class="visitor-details-modal" style="max-width: 500px; width: 95%;" :bordered="false">
 			<div v-if="selectedVisitor" class="visitor-details">
 				<div class="detail-section">
-					<h3>Basic Information</h3>
-					<div class="detail-grid">
+					<h3 class="detail-heading">Basic Information</h3>
+					<div class="detail-stack">
 						<div class="detail-item">
 							<strong>Name:</strong> {{ selectedVisitor.name }}
 						</div>
@@ -64,13 +64,13 @@
 				</div>
 
 				<div class="detail-section">
-					<h3>Recent Visits</h3>
+					<h3 class="detail-heading">Recent Visits</h3>
 					<div class="visits-list">
 						<div v-for="visit in selectedVisitor.visits" :key="visit.id" class="visit-item">
 							<div class="visit-date">{{ formatDate(visit.checkInTime) }}</div>
 							<div class="visit-services">
-								<n-tag 
-									v-for="service in visit.services" 
+								<n-tag
+									v-for="service in visit.services"
 									:key="service"
 									:type="getServiceType(service)"
 									size="small"
@@ -90,8 +90,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, h } from 'vue'
-import { NInput, NSelect, NButton, NDataTable, NModal, NTag } from 'naive-ui'
+import { NButton, NDataTable, NInput, NModal, NSelect, NTag } from 'naive-ui'
+import { computed, h, ref } from 'vue'
 import Icon from '@/components/common/Icon.vue'
 
 // Props
@@ -219,31 +219,31 @@ const filteredVisitors = computed(() => {
 // Methods
 const rowKey = (row: any) => row.id
 
-const resetFilters = () => {
+function resetFilters() {
 	searchQuery.value = ''
 	sortBy.value = 'lastVisit'
 }
 
-const handleViewVisitor = (visitor: any) => {
+function handleViewVisitor(visitor: any) {
 	selectedVisitor.value = visitor
 	showVisitorDetails.value = true
 	emit('visitor-selected', visitor)
 }
 
-const handleEditVisitor = (visitor: any) => {
+function handleEditVisitor(visitor: any) {
 	emit('edit-visitor', visitor)
 }
 
-const handleDeleteVisitor = (visitorId: number) => {
+function handleDeleteVisitor(visitorId: number) {
 	emit('delete-visitor', visitorId)
 }
 
-const formatDate = (date: string | null) => {
+function formatDate(date: string | null) {
 	if (!date) return 'Never'
 	return new Date(date).toLocaleDateString()
 }
 
-const getServiceType = (service: string) => {
+function getServiceType(service: string) {
 	const serviceTypes: { [key: string]: string } = {
 		pantry: 'success',
 		clothing: 'info',
@@ -255,7 +255,7 @@ const getServiceType = (service: string) => {
 	return serviceTypes[service] || 'default'
 }
 
-const getServiceTitle = (service: string) => {
+function getServiceTitle(service: string) {
 	const serviceTitles: { [key: string]: string } = {
 		pantry: 'Food Pantry',
 		clothing: 'Clothing',
@@ -314,33 +314,37 @@ const getServiceTitle = (service: string) => {
 }
 
 .visitor-details-modal {
-	max-width: 800px;
+	max-width: 500px;
 }
 
 .visitor-details {
 	text-align: left;
+	color: var(--text-color, #eaeaea);
 }
 
 .detail-section {
 	margin-bottom: 30px;
 }
 
-.detail-section h3 {
+.detail-heading {
 	margin: 0 0 15px 0;
-	color: #333;
+	color: var(--primary-color, #36ad47);
 	font-size: 18px;
+	font-weight: 600;
 }
 
-.detail-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	gap: 15px;
+.detail-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
 .detail-item {
-	padding: 10px;
-	background: #f5f5f5;
+	padding: 12px;
+	background: var(--card-color, #1f1f1f);
+	color: var(--text-color, #eaeaea);
 	border-radius: 6px;
+	border: 1px solid var(--border-color, #333);
 }
 
 .visits-list {
@@ -358,7 +362,7 @@ const getServiceTitle = (service: string) => {
 .visit-date {
 	font-weight: bold;
 	margin-bottom: 8px;
-	color: #333;
+	color: var(--text-color, #eaeaea);
 }
 
 .visit-services {
@@ -370,7 +374,7 @@ const getServiceTitle = (service: string) => {
 
 .visit-notes {
 	font-style: italic;
-	color: #666;
+	color: var(--text-secondary-color, #bbbbbb);
 	font-size: 14px;
 }
 
@@ -394,8 +398,8 @@ const getServiceTitle = (service: string) => {
 		width: 120px;
 	}
 
-	.detail-grid {
-		grid-template-columns: 1fr;
+	.detail-stack {
+		gap: 10px;
 	}
 
 	.action-buttons {
@@ -403,4 +407,4 @@ const getServiceTitle = (service: string) => {
 		gap: 4px;
 	}
 }
-</style> 
+</style>

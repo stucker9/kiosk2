@@ -32,8 +32,8 @@
 <script lang="ts" setup>
 import { Icon as Iconify } from "@iconify/vue"
 import { computed } from "vue"
-import Logo from "@/layouts/common/Logo.vue"
 import Icon from "@/components/common/Icon.vue"
+import Logo from "@/layouts/common/Logo.vue"
 import { useThemeStore } from "@/stores/theme"
 
 const { logoMini } = defineProps<{

@@ -12,13 +12,13 @@
 				<div class="phone-input">
 					<span class="phone-prefix">+1</span>
 					<span class="phone-number">{{ formattedPhoneNumber }}</span>
-					<span class="cursor" v-if="showCursor">|</span>
+					<span v-if="showCursor" class="cursor">|</span>
 				</div>
 			</div>
 
 			<!-- Dialpad -->
 			<div class="dialpad">
-				<div class="dialpad-row" v-for="(row, rowIndex) in dialpadLayout" :key="rowIndex">
+				<div v-for="(row, rowIndex) in dialpadLayout" :key="rowIndex" class="dialpad-row">
 					<n-button
 						v-for="button in row"
 						:key="button.value"
@@ -65,8 +65,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onMounted, onUnmounted } from "vue"
 import { NButton } from "naive-ui"
+import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 import Icon from "@/components/common/Icon.vue"
 
 // Props
@@ -124,27 +124,27 @@ const formattedPhoneNumber = computed(() => {
 })
 
 // Methods
-const handleDialpadClick = (button: any) => {
+function handleDialpadClick(button: any) {
 	if (button.disabled || localPhoneNumber.value.length >= 10) return
 
 	localPhoneNumber.value += button.value
 	emit("phone-updated", localPhoneNumber.value)
 }
 
-const clearPhoneNumber = () => {
+function clearPhoneNumber() {
 	localPhoneNumber.value = ""
 	emit("phone-updated", "")
 }
 
 // Cursor animation
 let cursorInterval: NodeJS.Timeout
-const startCursorAnimation = () => {
+function startCursorAnimation() {
 	cursorInterval = setInterval(() => {
 		showCursor.value = !showCursor.value
 	}, 200)
 }
 
-const stopCursorAnimation = () => {
+function stopCursorAnimation() {
 	if (cursorInterval) {
 		clearInterval(cursorInterval)
 	}
