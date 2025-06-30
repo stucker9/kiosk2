@@ -17,6 +17,11 @@ export default defineNuxtConfig({
 		"nuxtjs-naive-ui",
 		"@nuxt/eslint"
 	],
+	runtimeConfig: {
+		public: {
+			nodeEnv: process.env.NODE_ENV || "development"
+		}
+	},
 	app: {
 		rootId: "app"
 	},
